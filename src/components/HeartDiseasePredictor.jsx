@@ -50,7 +50,7 @@ const HeartDiseasePredictor = () => {
     console.log('Sending data to backend:', JSON.stringify(payloadToSend, null, 2));
 
     try {
-      const res = await axios.post('http://127.0.0.1:5000/predict', payloadToSend, {
+      const res = await axios.post('https://ai-heart-disease-prediction-system-1.onrender.com/predict', payloadToSend, {
         headers: { 'Content-Type': 'application/json' }
       });
       setResult(res.data.prediction);
