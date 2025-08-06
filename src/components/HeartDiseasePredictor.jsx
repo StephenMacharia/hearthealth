@@ -50,7 +50,7 @@ const HeartDiseasePredictor = () => {
     console.log('Sending data to backend:', JSON.stringify(payloadToSend, null, 2));
 
     try {
-      const res = await axios.post('https://ai-heart-disease-prediction-system-1.onrender.com/predict', payloadToSend, {
+      const res = await axios.post('https://ai-heart-disease-prediction-system.onrender.com/predict', payloadToSend, {
         headers: { 'Content-Type': 'application/json' }
       });
       setResult(res.data.prediction);
@@ -74,7 +74,7 @@ const HeartDiseasePredictor = () => {
     }
   };
 
-  // --- STYLES (Copied from your original code, assuming they are as intended) ---
+  
   const containerStyle = {
     maxWidth: '700px', margin: '40px auto', padding: '2rem', backgroundColor: '#fff',
     borderRadius: '1rem', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
