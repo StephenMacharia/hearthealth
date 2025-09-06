@@ -107,7 +107,7 @@ const HeartDiseasePredictor = () => {
     { label: 'Resting Blood Pressure (mmHg)', name: 'trestbps', placeholder: 'e.g., 120' },
     { label: 'Serum Cholesterol (mg/dl)', name: 'chol', placeholder: 'e.g., 200' },
     { label: 'Fasting Blood Sugar > 120 mg/dl (1=true; 0=false)', name: 'fbs', placeholder: '0 or 1' },
-    { label: 'Resting ECG Result (0-2)', name: 'restecg', placeholder: '0-2' },
+    { label: 'Resting Systolic Blood Pressure (mmHg)', name: 'restingbp', placeholder: 'e.g., 120' },
     { label: 'Max Heart Rate Achieved', name: 'thalach', placeholder: 'e.g., 150' },
     { label: 'Exercise Induced Angina (1=yes; 0=no)', name: 'exang', placeholder: '0 or 1' },
     { label: 'ST Depression by Exercise', name: 'oldpeak', placeholder: 'e.g., 1.2 (float)' },
