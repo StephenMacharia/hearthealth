@@ -9,9 +9,8 @@ const HeartDiseasePredictor = () => {
   });
 
   const [result, setResult] = useState(null);
-  const [error, setError] = useState(''); // To display errors in the UI if needed
+  const [error, setError] = useState('');
 
-  // Defines the order of features, crucial for sending them as an array
   const featureOrder = [
     'age', 'sex', 'cp', 'trestbps', 'chol', 'fbs',
     'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal'
@@ -23,58 +22,44 @@ const HeartDiseasePredictor = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); // Clear previous errors
-    setResult(null); // Clear previous results
+    setError('');
+    setResult(null);
 
-    // Convert form data to an array of numbers in the correct order
+    // Convert form data to numbers in the correct order
     const featureValues = featureOrder.map(key => {
-      const value = formData[key];
-      // 'oldpeak' is float, others are int. Handle potential empty strings.
-      if (value === '') return NaN; // Or handle as needed, e.g., show validation error
+      const value = formData[key]?.trim();
+      if (value === '') return NaN;
       return key === 'oldpeak' ? parseFloat(value) : parseInt(value, 10);
     });
 
-    // Check if any value failed to parse (e.g., empty input)
     if (featureValues.some(isNaN)) {
-      console.error('Invalid form data: Some fields might be empty or non-numeric.');
       setError('Please fill all fields correctly. All values must be numbers.');
       return;
     }
 
-    // This is what your backend likely expects: { "features": [[val1, val2, ...]] }
-    // The outer array is because scikit-learn's predict method often expects a 2D array.
-    const payloadToSend = {
-      features: [featureValues]
-    };
-
-    console.log('Sending data to backend:', JSON.stringify(payloadToSend, null, 2));
+    const payloadToSend = { features: [featureValues] };
+    console.log('Sending:', payloadToSend);
 
     try {
-      const res = await axios.post('https://ai-heart-disease-prediction-system.onrender.com/predict', payloadToSend, {
-        headers: { 'Content-Type': 'application/json' }
-      });
+      const res = await axios.post(
+        'https://ai-heart-disease-prediction-system.onrender.com/predict',
+        payloadToSend,
+        { headers: { 'Content-Type': 'application/json' } }
+      );
       setResult(res.data.prediction);
     } catch (err) {
       let errorMessage = 'Prediction failed. Please try again.';
       if (err.response) {
-        // Backend returned an error
-        console.error('Backend Error:', err.response.data);
         errorMessage = `Prediction failed: ${err.response.data.error || JSON.stringify(err.response.data)}`;
       } else if (err.request) {
-        // Request was made but no response received
-        console.error('Network Error:', err.request);
         errorMessage = 'Prediction failed: Could not connect to the server.';
       } else {
-        // Something else happened
-        console.error('Error:', err.message);
         errorMessage = `Prediction failed: ${err.message}`;
       }
       setError(errorMessage);
-      console.error('Full error object:', err);
     }
   };
 
-  
   const containerStyle = {
     maxWidth: '700px', margin: '40px auto', padding: '2rem', backgroundColor: '#fff',
     borderRadius: '1rem', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
@@ -93,12 +78,11 @@ const HeartDiseasePredictor = () => {
   };
   const resultBoxStyle = (isError) => ({
     marginTop: '1.5rem', padding: '1rem', borderRadius: '0.375rem',
-    backgroundColor: isError ? '#fee2e2' : '#eff6ff', // Red for error, blue for success
-    color: isError ? '#991b1b' : '#1e40af', // Darker red for error text
+    backgroundColor: isError ? '#fee2e2' : '#eff6ff',
+    color: isError ? '#991b1b' : '#1e40af',
     textAlign: 'center', border: isError ? '1px solid #f87171' : '1px solid #bfdbfe'
   });
   const errorBoxStyle = { ...resultBoxStyle(true) };
-
 
   const fields = [
     { label: 'Age', name: 'age', placeholder: 'e.g., 52' },
@@ -107,7 +91,7 @@ const HeartDiseasePredictor = () => {
     { label: 'Resting Blood Pressure (mmHg)', name: 'trestbps', placeholder: 'e.g., 120' },
     { label: 'Serum Cholesterol (mg/dl)', name: 'chol', placeholder: 'e.g., 200' },
     { label: 'Fasting Blood Sugar > 120 mg/dl (1=true; 0=false)', name: 'fbs', placeholder: '0 or 1' },
-    { label: 'Resting Systolic Blood Pressure (mmHg)', name: 'restingbp', placeholder: 'e.g., 120' },
+    { label: 'Resting Systolic Blood Pressure (0-2)', name: 'restecg', placeholder: '0-2' },
     { label: 'Max Heart Rate Achieved', name: 'thalach', placeholder: 'e.g., 150' },
     { label: 'Exercise Induced Angina (1=yes; 0=no)', name: 'exang', placeholder: '0 or 1' },
     { label: 'ST Depression by Exercise', name: 'oldpeak', placeholder: 'e.g., 1.2 (float)' },
@@ -127,8 +111,8 @@ const HeartDiseasePredictor = () => {
           <div key={field.name} style={{ display: 'flex', flexDirection: 'column' }}>
             <label htmlFor={field.name} style={labelStyle}>{field.label}</label>
             <input
-              type={field.name === 'oldpeak' ? "number" : "number"} // oldpeak can be float
-              step={field.name === 'oldpeak' ? "0.1" : "1"}      // allow decimals for oldpeak
+              type="number"
+              step={field.name === 'oldpeak' ? "0.1" : "1"}
               id={field.name}
               name={field.name}
               value={formData[field.name]}
@@ -155,7 +139,8 @@ const HeartDiseasePredictor = () => {
 
       {result !== null && !error && (
         <motion.div style={resultBoxStyle(false)} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <strong>Prediction:</strong> {result === 1
+          <strong>Prediction:</strong>{' '}
+          {result === 1
             ? '⚠️ High likelihood of heart disease. Please consult a doctor.'
             : '✅ Low likelihood of heart disease. Maintain a healthy lifestyle.'}
         </motion.div>
