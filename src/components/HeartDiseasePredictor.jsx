@@ -103,7 +103,7 @@ const HeartDiseasePredictor = () => {
   return (
     <motion.div style={containerStyle} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
       <h1 style={{ fontSize: '1.875rem', fontWeight: '600', textAlign: 'center', color: '#1f2937', marginBottom: '1.5rem' }}>
-        Heart Disease Risk Assessment
+        CARDIO AI
       </h1>
 
       <form onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
