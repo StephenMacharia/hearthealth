@@ -182,7 +182,7 @@ const HeartDiseasePredictor = () => {
       >
         <div style={styles.header}>
           <CardioAIIcon /> {/* --- Added Icon Component Here --- */}
-          <h1 style={{ margin: 0, color: '#1e293b', fontSize: '2rem', fontWeight: '800' }}>CardioAI</h1>
+          <h1 style={{ margin: 0, color: '#1e293b', fontSize: '2rem', fontWeight: '800' }}>Cardio safe AI</h1>
           <p style={{ color: '#64748b', marginTop: '5px' }}>Advanced Heart Health Diagnostic Tool</p>
         </div>
 
