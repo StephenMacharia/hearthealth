@@ -1,13 +1,130 @@
+:root {
+  /* Brand palette, taken from the Cardio AI pitch deck */
+  --navy-900: #0a1e33;
+  --navy-800: #0d2b45;
+  --navy-700: #123a5c;
+  --ink-900: #1e293b;
+  --slate-600: #64748b;
+  --slate-500: #7c8aa0;
+  --slate-400: #94a3b8;
+  --slate-200: #e2e8f0;
+  --slate-100: #eef2f6;
+  --slate-50: #f5f7fa;
+  --teal-300: #5eead4;
+  --teal-400: #2dd4bf;
+  --teal-500: #14b8a6;
+  --teal-600: #0d9488;
+  --white: #ffffff;
+
+  --font-display: 'Zilla Slab', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --shadow-md: 0 12px 30px rgba(10, 30, 51, 0.08);
+  --shadow-lg: 0 24px 60px rgba(10, 30, 51, 0.14);
+  --radius-md: 14px;
+  --radius-lg: 22px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-body);
+  color: var(--ink-900);
+  background: var(--white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  margin: 0;
+  color: var(--ink-900);
+  line-height: 1.15;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: var(--font-body);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.kicker {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-600);
+  margin-bottom: 14px;
+}
+
+.kicker--on-dark {
+  color: var(--teal-400);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 999px;
+  padding: 14px 28px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn--primary {
+  background: var(--teal-500);
+  color: var(--navy-900);
+  box-shadow: 0 10px 24px rgba(20, 184, 166, 0.35);
+}
+
+.btn--primary:hover {
+  background: var(--teal-400);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.btn--ghost:hover {
+  border-color: var(--teal-400);
+  color: var(--teal-400);
+}
+
+.btn--dark {
+  background: var(--navy-900);
+  color: var(--white);
+}
+
+.btn--dark:hover {
+  background: var(--navy-700);
 }

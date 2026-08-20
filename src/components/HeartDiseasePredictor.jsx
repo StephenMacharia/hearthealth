@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -135,7 +136,7 @@ const HeartDiseasePredictor = () => {
     },
     button: {
       gridColumn: '1 / -1',
-      backgroundColor: '#2563eb',
+      backgroundColor: '#0d9488',
       color: 'white',
       padding: '16px',
       borderRadius: '12px',
@@ -144,7 +145,24 @@ const HeartDiseasePredictor = () => {
       border: 'none',
       cursor: 'pointer',
       marginTop: '20px',
-      boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)'
+      boxShadow: '0 4px 12px rgba(13, 148, 136, 0.35)'
+    },
+    backLink: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '6px',
+      color: '#64748b',
+      fontSize: '0.9rem',
+      fontWeight: 600,
+      textDecoration: 'none',
+      marginBottom: '20px'
+    },
+    disclaimer: {
+      marginTop: '24px',
+      fontSize: '0.8rem',
+      color: '#94a3b8',
+      textAlign: 'center',
+      lineHeight: 1.5
     },
     resultCard: (isHighRisk) => ({
       marginTop: '30px',
@@ -180,10 +198,16 @@ const HeartDiseasePredictor = () => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
       >
+        <Link to="/" style={styles.backLink}>
+          ← Back to Home
+        </Link>
+
         <div style={styles.header}>
-          <CardioAIIcon /> {/* --- Added Icon Component Here --- */}
-          <h1 style={{ margin: 0, color: '#1e293b', fontSize: '2rem', fontWeight: '800' }}>Cardio safe AI</h1>
-          <p style={{ color: '#64748b', marginTop: '5px' }}>Advanced Heart Health Diagnostic Tool</p>
+          <CardioAIIcon />
+          <h1 style={{ margin: 0, color: '#1e293b', fontSize: '2rem', fontWeight: '800' }}>
+            Cardio <span style={{ color: '#0d9488' }}>AI</span>
+          </h1>
+          <p style={{ color: '#64748b', marginTop: '5px' }}>Predictive Cardiovascular Risk Assessment</p>
         </div>
 
         <form onSubmit={handleSubmit} style={styles.grid}>
@@ -200,7 +224,7 @@ const HeartDiseasePredictor = () => {
                 required
                 style={styles.input}
                 onFocus={(e) => {
-                  e.target.style.borderColor = '#2563eb';
+                  e.target.style.borderColor = '#0d9488';
                   e.target.style.backgroundColor = '#fff';
                 }}
                 onBlur={(e) => {
@@ -250,6 +274,12 @@ const HeartDiseasePredictor = () => {
             </motion.div>
           )}
         </AnimatePresence>
+
+        <p style={styles.disclaimer}>
+          Cardio AI is a decision-support prototype and does not provide a
+          medical diagnosis. Always consult a qualified clinician about your
+          cardiovascular health.
+        </p>
       </motion.div>
     </div>
   );
